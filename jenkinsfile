@@ -1,6 +1,6 @@
 node {
   stage('SCM') {
-    git 'https://github.com/foo/bar.git'
+    git 'https://github.com/Dhanasekhar-Pololla/dhana-sonar.git'
   }
   stage('SonarQube analysis') {
     withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'My SonarQube Server') { // You can override the credential to be used
