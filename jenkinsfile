@@ -1,12 +1,10 @@
 node {
-   // This is to demo github action	
-   def sonarUrl = 'sonar.host.url=http://172.31.19.221:9000'
-   def mvn = tool (name: 'maven3', type: 'maven') + '/bin/mvn'
-   stage('SCM Checkout'){
-    // Clone repo
-	git branch: 'master', 
-	credentialsId: 'github', 
-	url: 'https://github.com/Dhanasekhar-Pololla/my-app'
-   
-   }
-   }
+  stage('SCM') {
+    git 'https://github.com/foo/bar.git'
+  }
+  stage('SonarQube analysis') {
+    withSonarQubeEnv(credentialsId: 'sonarqube', installationName: 'My SonarQube Server') { // You can override the credential to be used
+      sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+    }
+  }
+}
